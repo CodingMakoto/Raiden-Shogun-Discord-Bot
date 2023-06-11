@@ -21,7 +21,7 @@
 
 ## Discover Me
 
-**STILL IN DEVELOPMENT, NOT FINISHED YET**
+⚠️ **STILL IN DEVELOPMENT, NOT FINISHED YET**
 
 I'm a Young Developer that create this by himself so my code work but can be a lot different about what real dev do
 
