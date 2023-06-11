@@ -1,0 +1,36 @@
+{
+  "Francais":
+    {
+      "1":
+      {
+        "title": "Prologue",
+        "story": "Salut ! C'est Antoine ! Utilise les boutons en dessous pour sélectionner la suite de l’histoire, si tu as besoin d’aide tu peut m’appeler avec : `/story antoine`"
+      },
+      "2":
+      {
+        "title": "Chapitre 1 : Un nouveau monde",
+        "story": "Tout d'abord je me présente, je suis Antoine ton guide durant cette aventure, je suis sûr que nous allons découvrir pleins de choses ensemble. On s'approchait d'Inazuma. Tu avais entendu parler de la beauté de l'île et de sa richesse culturelle, mais tu n'étais pas préparé à la vue qui s'offrait à toi alors que tu approchais de la plage de l'île de Watatsumi. On ne savaient pas comment mais on venaient de se réveiller dans l'eau sur un bout de bois. Des collines verdoyantes s'élevaient derrière la plage de sable blanc, bordée par une eau bleue étincelante. Tu avais rarement vu un endroit aussi paisible, pourtant, tu sentais une tension dans l'air. Les rumeurs de conflit et d'oppression t'avaient amené ici, après tout. Tu savait que tu devais te méfier, même dans cet endroit qui ne semblait pas hostile. Après 30 minutes à naviguer sur ce vulgaire bout de bois, tu arrivas et posa le pied sur le sable chaud, prêt à commencer une nouvelle aventure tandis que je venait de m'écrouler pour dormir sur ce sable chaud. Les habitants de l'île d'Inazuma semblaient au loin accueillants et hospitaliers, et tu te demandait ce que tu allais découvrir dans les jours à venir. Mais tu avais appris à être prudent, et tu garderais toujours un œil sur son environnement. Après tout, tu étais un aventurier, et l'inconnu était ton terrain de jeu."
+      },
+      "3":{
+        "title": "Chapitre 3 : Une rencontre désagréable",
+        "story": "Les premiers pas étaient tranquilles, on avaient l'impression d'être les seuls sur cette île. Mais au bout d'un moment, il remarqua des mouvements dans les arbres et les buissons. Il se mit en garde, prêt à affronter toute menace potentielle. C'est alors qu'il découvrit un groupe de bandits qui semblait prêt à en découdre. Antoine venait de se rendormir sur le sable chaud, 'Tu ne peut pas m'aider pour une fois ? Vite ils courent vers moi, que dois-je faire ?'"
+      }
+    },
+  "English":
+    {
+      "1":{
+        "title": "Prologue",
+        "story": "Hey ! It's Antoine ! Use the buttons down there to select the rest of the story, if you need help you can call me with : `/story antoine`"
+      },
+      "2":
+      {
+        "title": "Chapter 1 : A New World",
+        "story": "We were approaching Inazuma. You had heard about the beauty of the island and its cultural richness, but you were not prepared for the sight that was before you as you approached the beach of the island of Watatsumi. We didn’t know how, but we just woke up in the water on a piece of wood. Green hills rose behind the white sandy beach, bordered by sparkling blue water. You had rarely seen such a peaceful place, yet you felt tension in the air. Rumors of conflict and oppression brought you here, after all. You knew you had to be careful, even in this place that didn’t seem hostile. After 30 minutes of sailing on this vulgar piece of wood, you arrived and set foot on the warm sand, ready to start a new adventure while I had just collapsed to sleep on this warm sand. The inhabitants of the island of Inazuma seemed in the distance hospitable, and you wondered what you were going to discover in the coming days. But you had learned to be careful, and you would always keep an eye on his surroundings. After all, you were an adventurer, and the unknown was your playground."
+      },
+      "3":
+      {
+        "title": "Chapter 2 : An Unpleasant Meeting",
+        "story": "The first steps were quiet, we had the impression of being the only ones on this island. But after a while he noticed movements in the trees and bushes. He warned, ready to face any potential threat. It was then that he discovered a group of bandits who seemed ready to fight. Antoine had just fallen asleep on the warm sand again, 'You can’t help me for once ? Quickly, they run towards me, what should I do ?'"
+      }
+    }
+}
