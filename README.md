@@ -49,7 +49,7 @@ Using :
 
 Clone the Repository and open it on your IDE.
    ```sh
-   git clone https://github.com/CodingMakoto/Raiden-Shogun-Bot.git
+   git clone https://github.com/CodingMakoto/Raiden-Shogun-Discord-Bot.git
    ```
 
 
