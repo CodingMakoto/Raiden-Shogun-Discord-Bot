@@ -23,7 +23,7 @@
 
 ⚠️ **STILL IN DEVELOPMENT, NOT FINISHED YET**
 
-I'm a Young Developer that create this by himself so my code work but can be a lot different about what real dev do
+⚠️ I'm a Young Student Developer that create this by himself so my code work but can be a lot different about what real dev do and not optimized at all !
 
 So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to recreate the Genshin Impact Story in Inazuma on Discord. I can fetch your Personal Info in the real game also, with me you are going to discover Inazuma with a new guide named : Antoine and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues, meet bosses and fight them, collect materials and earn characters to be more powerful in battle ! I'm also in Development and not finished so errors and problems can appear sometimes :3.
 
