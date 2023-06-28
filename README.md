@@ -13,7 +13,7 @@
     <br />
     I'm also speaking French little cutie...
     <br />
-    <a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong></a> · <a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
+    <!--<a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong>--></a> · <a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
     <br />
     <br />
   </p>
@@ -23,9 +23,9 @@
 
 ⚠️ **STILL IN DEVELOPMENT, NOT FINISHED YET**
 
-⚠️ I'm a Young Student Developer that create this by himself so my code work but can be a lot different about what real dev do and not optimized at all !
+⚠️ I'm a Young Student Developer that create this by himself for fun so my code work but can be a lot different about what real dev do and not optimized at all !
 
-So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to recreate the Genshin Impact Story in Inazuma on Discord. I can fetch your Personal Info in the real game also, with me you are going to discover Inazuma with a new guide named : Antoine and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues, meet bosses and fight them, collect materials and earn characters to be more powerful in battle ! I'm also in Development and not finished so errors and problems can appear sometimes :3.
+So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to recreate the Genshin Impact Story in Inazuma on Discord. I can fetch your Personal Info in the real game also, with me you are going to discover Inazuma with a new guide named : Antoine and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues, meet bosses and fight them, collect materials and earn characters to be more powerful in battle !.
 
 <p align="center">
   <img src="images/1-english.jpg"/>
@@ -53,15 +53,6 @@ Clone the Repository and open it on your IDE.
    ```sh
    git clone https://github.com/CodingMakoto/Raiden-Shogun-Discord-Bot.git
    ```
-
-
-
-## License
-
- [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
-Distributed under the GNU General Public License v3.0. See `LICENSE` for more informations.
-
 
 
 
