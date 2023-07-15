@@ -9,11 +9,11 @@
   <h3 align="center">Raiden Shogun Discord Bot</h3>
 
   <p align="center">
-    Have you ever wanted to live like Inazuma on Discord ?
+    Have you ever wanted to live an new Inazuma Adventure on Discord ?
     <br />
     I'm also speaking French little cutie...
     <br />
-    <!--<a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong>--></a> · <a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
+    <!--<a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong></a>--><a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
     <br />
     <br />
   </p>
