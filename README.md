@@ -37,7 +37,7 @@ So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal wa
 
 Raiden Shogun Bot was :
 
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![Python](PYTHON)](PYTHON-url)
 
 Using :
 
