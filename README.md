@@ -25,7 +25,7 @@
 
 ⚠️ I'm a Young Student Developer that create this by himself for fun so my code work but can be a lot different about what real dev do and not optimized at all !
 
-So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to recreate the Genshin Impact Story in Inazuma on Discord. I can fetch your Personal Info in the real game also, with me you are going to discover the New Inazuma with a new guide named : Makoto and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues, meet bosses and fight them, collect materials and earn characters to be more powerful in battle !.
+So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to recreate the Genshin Impact Story in Inazuma on Discord. I can fetch your Personal Info in the real game also, with me you are going to discover the New Inazuma with a new guide named : Makoto and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues of the seven, meet bosses and fight them, collect materials and earn characters to be more powerful in battle !.
 
 <p align="center">
   <img src="images/1-english.jpg"/>
