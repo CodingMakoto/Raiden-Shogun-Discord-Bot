@@ -11,7 +11,7 @@
   <p align="center">
     Have you ever wanted to live an New Inazuma Adventure on Discord ?
     <br />
-    I'm also speaking French
+    An Unnofficial Genshin Impact Discord Bot by Makoto#7116
     <br />
     <!--<a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong></a>--><a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
     <br />
@@ -32,7 +32,7 @@
 
 ## Discover Raiden Shogun
 
-So... Hello ! I'm Raiden Shogun Discord Bot ! Created by Makoto#7116, my goal was to create a New Inazuma Adventure on Discord based on the Genshin Impact Game. I can fetch your Personal Info in the real game also, with me you are going to discover the New Inazuma with a new guide named : Makoto and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues of the seven, meet bosses and fight them, collect materials and earn characters to be more powerful in battle !.
+So... Hello ! I'm Raiden Shogun Discord Bot ! My goal was to create a New Inazuma Adventure on Discord based on the Genshin Impact Game. I can fetch your Personal Info in the real game also, with me you are going to discover the New Inazuma with a new guide named : Makoto and visit Inazuma in a different way, complete quests and chapters, view your daily quests, heal yourself by using statues of the seven, meet bosses and fight them, collect materials and earn characters to be more powerful in battle !.
 
 <p align="center">
   <img src="images/1-english.jpg"/>
