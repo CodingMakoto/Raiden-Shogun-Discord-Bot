@@ -25,7 +25,7 @@
 
 ⚠️ I'm a Young Student Developer that create this by himself for fun so my code work but can be a lot different about what real dev do and not optimized at all !
 
-## Languages supported :
+## Languages supported
 
 🇫🇷 - **French**
 🇬🇧 - **English**
