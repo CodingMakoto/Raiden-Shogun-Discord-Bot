@@ -9,7 +9,7 @@
   <h3 align="center">Raiden Shogun Discord Bot</h3>
 
   <p align="center">
-    Have you ever wanted to live an new Inazuma Adventure on Discord ?
+    Have you ever wanted to live an New Inazuma Adventure on Discord ?
     <br />
     I'm also speaking French
     <br />
