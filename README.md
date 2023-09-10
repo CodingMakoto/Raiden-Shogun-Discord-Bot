@@ -28,6 +28,7 @@
 ## Languages supported
 
 🇫🇷 - **French**
+
 🇬🇧 - **English**
 
 ## Discover Raiden Shogun
