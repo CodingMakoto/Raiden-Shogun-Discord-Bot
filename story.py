@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
-from discord.commands import SlashCommandGroup, Option
+from discord import Option
+from discord.commands import SlashCommandGroup
 from discord.ui import Select, View, Button
+import random
 
 import mysql.connector
 import json
 
-class StoryCog(commands.Cog):
+class StoryCog(discord.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.default_color = 0x402c4c
+        self.default_color = 0x37266a
         self.mydb = mysql.connector.connect(
             host="HOST",
             user="USER",
@@ -18,8 +20,10 @@ class StoryCog(commands.Cog):
             auth_plugin="METHOD"
         )
         self.cursor = self.mydb.cursor()
-        self.file = open('chapters.json')
-        self.user_chapter = json.load(self.file)
+        self.chapter = open('chapters.json')
+        self.chapter_loaded = json.load(self.chapter)
+        self.quests = open('quests.json')
+        self.quests_loaded = json.load(self.quests)
 
     account = SlashCommandGroup(
         "account", "Everything about your Account"
@@ -30,12 +34,16 @@ class StoryCog(commands.Cog):
     )
 
     @account.command(name="start", description="🔍 Want to discover a new adventure ?")
-    async def start(self, ctx, language: discord.Option(str, "What language do you want ?", choices=[Option(str, "Défini la langue en Français", name="Français", value="Français"), Option(str, "Set English language", name="English", value="English")]), name=None):
-        self.cursor.execute(f"SELECT `NAME`, `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
-        account_exists = self.cursor.fetchone()
+    async def a_start(self, ctx, language: Option(str, "What language do you want ?", choices=["Français","English"]), uid: Option(str, "You can enter your real UID to be used with other commands", required=False), name: Option(str, "You can choose a name for this adventure", required=False)):
+        self.mydb.ping(reconnect=True)
+        self.cursor.execute(f"SELECT `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
+        account_exist = self.cursor.fetchone()
 
-        if account_exists:
-            lang = account_exists["LANG"]
+        if account_exist is not None:
+            self.cursor.execute(f"SELECT `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
+            lang_fetch = self.cursor.fetchall()
+            for langs in lang_fetch:
+                lang = langs[0]
             if lang == "English":
                 warning = discord.Embed(description="<:raidenangry:1080897820854329376> Your account is already open, to reset it use : `/account end`", color=self.default_color)
                 await ctx.respond(embed=warning, ephemeral=True)
@@ -44,37 +52,73 @@ class StoryCog(commands.Cog):
                 await ctx.respond(embed=warning, ephemeral=True)
         else:
             if language == "English":
-                if name is not None:
-                    self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `NAME`, `CHAPTER`, `MORAS`, `PRIMOS`, `BOSSES`, `HEALTH`, `STATUES`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{name}', '1', '0', '0', '0', '10000', '0', 'English')")
-                    self.mydb.commit()
-                    creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{name}` as adventure name and `{language}` as language. Now you can start your adventure in Inazuma with: `/story mode`", color=self.default_color)
-                    await ctx.respond(embed=creation)
+                if uid is not None:
+                    if len(uid) == 9:
+                        if name is not None:
+                            self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{uid}', '{name}', 'English')")
+                            self.mydb.commit()
+                            creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{name}` as adventure name and `{language}` as language. Now you can start your adventure in Inazuma with: `/story mode`", color=self.default_color)
+                            await ctx.respond(embed=creation)
+                        else:
+                            self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{uid}', '{ctx.author.name}', 'English')")
+                            self.mydb.commit()
+                            creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{language}` as language. Now you can start your adventure in Inazuma City with: `/story mode`", color=self.default_color)
+                            await ctx.respond(embed=creation)
+                    else:
+                        warning = discord.Embed(description="<:raidenangry:1080897820854329376> **Error**: The UID doesn't seem to be correct, UID is the 9-digit number of your in-game account", color=self.default_color)
+                        await ctx.respond(embed=warning)
                 else:
-                    self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `NAME`, `CHAPTER`, `MORAS`, `PRIMOS`, `BOSSES`, `HEALTH`, `STATUES`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{ctx.author.name}', '1', '0', '0', '0', '10000', '0', 'English')")
-                    self.mydb.commit()
-                    creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{language}` as language. Now you can start your adventure in Inazuma City with: `/story mode`", color=self.default_color)
-                    await ctx.respond(embed=creation)
+                    if name is not None:
+                        self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '0', '{name}', 'English')")
+                        self.mydb.commit()
+                        creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{name}` as adventure name and `{language}` as language. Now you can start your adventure in Inazuma with: `/story mode`", color=self.default_color)
+                        await ctx.respond(embed=creation)
+                    else:
+                        self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '0', '{ctx.author.name}', 'English')")
+                        self.mydb.commit()
+                        creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been created successfully {ctx.author.mention}, you chose: `{language}` as language. Now you can start your adventure in Inazuma City with: `/story mode`", color=self.default_color)
+                        await ctx.respond(embed=creation)
 
             elif language == "Français":
-                if name is not None:
-                    self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `NAME`, `CHAPTER`, `MORAS`, `PRIMOS`, `BOSSES`, `HEALTH`, `STATUES`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{name}', '1', '0', '0', '0', '10000', '0', 'Français')")
-                    self.mydb.commit()
-                    creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{name}` comme nom d’aventure et `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
-                    await ctx.respond(embed=creation)
+                if uid is not None:
+                    if len(uid) == 9:
+                        if name is not None:
+                            self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{uid}', '{name}', 'Français')")
+                            self.mydb.commit()
+                            creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{name}` comme nom d’aventure et `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
+                            await ctx.respond(embed=creation)
+                        else:
+                            self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{uid}', '{ctx.author.name}', 'Français')")
+                            self.mydb.commit()
+                            creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
+                            await ctx.respond(embed=creation)
+                    else:
+                        warning = discord.Embed(description="<:raidenangry:1080897820854329376> **Erreur**: L'UID ne semble pas être correct, l'UID est le numéro à 9 chiffres de votre compte en jeu", color=self.default_color)
+                        await ctx.respond(embed=warning)
                 else:
-                    self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `NAME`, `CHAPTER`, `MORAS`, `PRIMOS`, `BOSSES`, `HEALTH`, `STATUES`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '{ctx.author.name}', '1', '0', '0', '0', '10000', '0', 'Français')")
-                    self.mydb.commit()
-                    creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
-                    await ctx.respond(embed=creation)
+                    if name is not None:
+                        self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '0', '{name}', 'Français')")
+                        self.mydb.commit()
+                        creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{name}` comme nom d’aventure et `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
+                        await ctx.respond(embed=creation)
+                    else:
+                        self.cursor.execute(f"INSERT INTO `Account` (`ID`, `GUILD`, `UID`, `NAME`, `LANG`) VALUES ('{ctx.author.id}', '{ctx.guild.id}', '0', '{ctx.author.name}', 'Français')")
+                        self.mydb.commit()
+                        creation = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été créé avec succès {ctx.author.mention}, vous avez choisi: `{language}` comme langue. Maintenant vous pouvez commencer votre aventure à Inazuma avec: `/story mode`", color=self.default_color)
+                        await ctx.respond(embed=creation)
 
-    @account.command(name="end", description="🚪 Close the door of Inazuma City")
-    async def end(self, ctx):
-        self.cursor.execute(f"SELECT `NAME`, `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
-        account_exists = self.cursor.fetchone()
+    @account.command(name="end", description="🧳 Stop your adventure with Raiden Shogun")
+    async def a_end(self, ctx):
+        self.mydb.ping(reconnect=True)
+        self.cursor.execute(f"SELECT `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
+        account_exist = self.cursor.fetchone()
 
-        if account_exists:
-            language = account_exists["LANG"]
-            if language == "Français":
+        if account_exist is not None:
+            self.cursor.execute(f"SELECT `LANG` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
+            lang_fetch = self.cursor.fetchall()
+            for langs in lang_fetch:
+                lang = langs[0]
+            if lang == "Français":
                 async def yes_callback(interaction):
                     delete = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Votre compte a été supprimé avec succès {ctx.author.mention}", color=self.default_color)
                     self.cursor.execute(f"DELETE FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
@@ -82,12 +126,12 @@ class StoryCog(commands.Cog):
                     await interaction.response.send_message(embed=delete, ephemeral=True)
 
                 async def no_callback(interaction):
-                    stop = discord.Embed(description=f"Supression du Compte Annulée {ctx.author.mention}", color=self.default_color)
+                    stop = discord.Embed(description=f"Supression du compte annulée {ctx.author.mention}", color=self.default_color)
                     await interaction.response.send_message(embed=stop, ephemeral=True)
 
                 confirm = discord.Embed(description=f"Êtes-vous sûr de vouloir supprimer votre compte ? {ctx.author.mention}", color=self.default_color)
-                no = Button(label="Nonnnn", style=discord.ButtonStyle.danger)
-                yes = Button(label="Oui avec une grande tristesse...", style=discord.ButtonStyle.green)
+                no = Button(label="C'etait une erreur", style=discord.ButtonStyle.danger)
+                yes = Button(label="Oui", style=discord.ButtonStyle.green)
                 no.callback = no_callback
                 yes.callback = yes_callback
                 view = View()
@@ -95,7 +139,7 @@ class StoryCog(commands.Cog):
                 view.add_item(yes)
                 await ctx.respond(embed=confirm, view=view, ephemeral=True)
 
-            elif language == "English":
+            elif lang == "English":
                 async def yes_callback(interaction):
                     delete = discord.Embed(description=f"<:raidenlaugh:1080898399336931429> Your account has been deleted successfully {ctx.author.mention}", color=self.default_color)
                     self.cursor.execute(f"DELETE FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
@@ -103,12 +147,12 @@ class StoryCog(commands.Cog):
                     await interaction.response.send_message(embed=delete, ephemeral=True)
 
                 async def no_callback(interaction):
-                    stop = discord.Embed(description=f"Account Supression Cancelled {ctx.author.mention}", color=self.default_color)
+                    stop = discord.Embed(description=f"Account deletion cancelled {ctx.author.mention}", color=self.default_color)
                     await interaction.response.send_message(embed=stop, ephemeral=True)
 
                 confirm = discord.Embed(description=f"Are you sure you want to delete your account? {ctx.author.mention}", color=self.default_color)
-                no = Button(label="Nooooo", style=discord.ButtonStyle.danger)
-                yes = Button(label="Yes unfortunately...", style=discord.ButtonStyle.green)
+                no = Button(label="That's an error", style=discord.ButtonStyle.danger)
+                yes = Button(label="Yes", style=discord.ButtonStyle.green)
                 no.callback = no_callback
                 yes.callback = yes_callback
                 view = View()
@@ -120,51 +164,5 @@ class StoryCog(commands.Cog):
             warning = discord.Embed(description="<:raidenangry:1080897820854329376> You do not have an account to delete", color=self.default_color)
             await ctx.respond(embed=warning, ephemeral=True)
 
-    @story.command(name="mode", description="🗺️ Explore the New Inazuma City !")
-    async def mode(self, ctx):
-        self.cursor.execute(f"SELECT `NAME`, `LANG`, `CHAPTER` FROM `Account` WHERE `ID` = '{ctx.author.id}' AND `GUILD` = '{ctx.guild.id}'")
-        account_exists = self.cursor.fetchone()
-
-        if account_exists:
-            lang = account_exists["LANG"]
-            chapter = int(account_exists["CHAPTER"])
-
-            if lang == "English":
-                if chapter == 1:
-                    no = Button(label="Wait... I'm not sure", style=discord.ButtonStyle.danger, emoji="<:raidenangry:1080897820854329376>")
-                    yes = Button(label="I'm ready!", style=discord.ButtonStyle.primary, emoji="<:raidenbird:1080897824440455288>")
-                    view = View()
-                    view.add_item(no)
-                    view.add_item(yes)
-
-                elif chapter == 2:
-                    button = Button(label="Test", style=discord.ButtonStyle.primary, emoji="<:raidenbird:1080897824440455288>")
-                    view = View()
-                    view.add_item(button)
-
-                story = discord.Embed(description=self.user_chapter["English"][f"{chapter}"]["story"], color=self.default_color)
-                file = discord.File(f"/media/bot/images/story/{chapter}-english.jpg", filename="story-english.jpg")
-                story.set_image(url="attachment://story-english.jpg")
-
-            elif lang == "Français":
-                if chapter == 1:
-                    no = Button(label="Attends... je ne suis pas sûr", style=discord.ButtonStyle.danger, emoji="<:raidenangry:1080897820854329376>")
-                    yes = Button(label="Je suis prêt(e)!", style=discord.ButtonStyle.primary, emoji="<:raidenbird:1080897824440455288>")
-                    view = View()
-                    view.add_item(no)
-                    view.add_item(yes)
-
-                elif chapter == 2:
-                    button = Button(label="Test", style=discord.ButtonStyle.primary, emoji="<:raidenbird:1080897824440455288>")
-                    view = View()
-                    view.add_item(button)
-
-                story = discord.Embed(description=self.user_chapter["Francais"][f"{chapter}"]["story"], color=self.default_color)
-                file = discord.File(f"/media/bot/images/story/{chapter}.jpg", filename="story.jpg")
-                story.set_image(url="attachment://story.jpg")
-
-            await ctx.respond(file=file, embed=story, view=view)
-
-        else:
-            warning = discord.Embed(description="<:raidenangry:1080897820854329376> You do not have an account to explore Inazuma Island", color=self.default_color)
-            await ctx.respond(embed=warning, ephemeral=True)
+def setup(bot):
+    bot.add_cog(StoryCog(bot))
