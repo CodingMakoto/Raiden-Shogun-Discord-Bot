@@ -11,7 +11,7 @@
   <p align="center">
     Have you ever wanted to live an New Inazuma Adventure on Discord ?
     <br />
-    An Unnofficial Genshin Impact Discord Bot by Makoto#7116
+    An Unofficial Genshin Impact Discord Bot by Makoto#7116
     <br />
     <!--<a href="https://raidenshogun.gitbook.io/docs"><strong>Documentation</strong></a>--><a href="https://discord.gg/2AePNcphrs"><strong>Discord Server</strong></a>
     <br />
@@ -19,17 +19,23 @@
   </p>
 </div>
 
+
+
 ## Last Informations
 
 ⚠️ **STILL IN DEVELOPMENT, NOT FINISHED YET**
 
 ⚠️ I'm a Young Student Developer that create this by himself for fun so my code work but can be a lot different about what real dev do and not optimized at all !
 
+
+
 ## Languages supported
 
 🇫🇷 **Français**
 
 🇬🇧 **English**
+
+
 
 ## Discover Raiden Shogun
 
